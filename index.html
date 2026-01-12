@@ -3,164 +3,145 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Co-Teaching Model Selector</title>
-
+  <title>Co-Teaching Widget</title>
   <style>
-  :root{
-    --padua-maroon:#6b0f1a;
-    --padua-gold:#c9a13b;
-    --text:#1f2937;
-    --muted:#6b7280;
-    --border:#e5e7eb;
-  }
+    /* ====== SIZE CONTROL ======
+       Set this to the square size you want.
+       - For "about 2cm" you can try: 2cm
+       - More realistic readable widget: 220px or 260px
+    */
+    :root{
+      --widget-size: 220px; /* change to 2cm if you truly want that */
+      --padua-maroon:#6b0f1a;
+      --padua-gold:#c9a13b;
+      --border:#e5e7eb;
+      --bg:#ffffff;
+      --muted:#6b7280;
+    }
 
-  body{
-    margin:0;
-    font-family: Arial, Helvetica, sans-serif;
-    background:#ffffff;
-    color:var(--text);
-  }
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: transparent;
+      width: 100%;
+      height: 100%;
+      overflow: hidden; /* no scrolling */
+      font-family: Arial, Helvetica, sans-serif;
+    }
 
-  .wrap{
-    max-width:1000px;
-    margin:0 auto;
-    padding:12px;
-  }
+    /* Center the widget (optional). Remove if you want it top-left in an iframe */
+    .stage{
+      width: 100%;
+      height: 100%;
+      display: grid;
+      place-items: center;
+    }
 
-  .topbar{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    padding:10px 12px;
-    border:1px solid var(--border);
-    border-radius:10px;
-    background:#fff;
-  }
+    /* The widget is a fixed square, no scroll */
+    .widget{
+      width: var(--widget-size);
+      height: var(--widget-size);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden; /* no scroll inside */
+      display: grid;
+      grid-template-columns: 34% 66%; /* left buttons, right image */
+    }
 
-  .badge{
-    width:8px;
-    height:32px;
-    border-radius:999px;
-    background:linear-gradient(180deg,var(--padua-maroon),var(--padua-gold));
-  }
+    .left{
+      border-right: 1px solid var(--border);
+      padding: 6px;
+      display: grid;
+      gap: 6px;
+      align-content: start;
+      background: #fff;
+    }
 
-  h1{
-    font-size:16px;
-    margin:0;
-    font-weight:700;
-  }
+    /* Tiny buttons */
+    .btn{
+      border: 1px solid var(--border);
+      background: #fff;
+      border-radius: 10px;
+      padding: 8px 6px;
+      font-size: 11px;
+      line-height: 1.1;
+      cursor: pointer;
+      text-align: left;
+      user-select: none;
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
 
-  .sub{
-    margin:2px 0 0;
-    font-size:12px;
-    color:var(--muted);
-  }
+    .dot{
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, var(--padua-maroon), var(--padua-gold));
+      flex: 0 0 auto;
+    }
 
-  .controls{
-    margin-top:10px;
-    display:flex;
-    align-items:center;
-    gap:8px;
-  }
+    .btn.active{
+      border-color: var(--padua-maroon);
+      box-shadow: inset 0 0 0 1px var(--padua-maroon);
+    }
 
-  label{
-    font-size:12px;
-    color:var(--muted);
-  }
+    .right{
+      position: relative;
+      background: #f9fafb;
+      display: grid;
+      place-items: center;
+    }
 
-  select{
-    min-width:260px;
-    padding:8px 10px;
-    border-radius:8px;
-    border:1px solid var(--border);
-    font-size:13px;
-    background:#fff;
-  }
+    .placeholder{
+      font-size: 11px;
+      color: var(--muted);
+      text-align: center;
+      padding: 10px;
+    }
 
-  .card{
-    margin-top:10px;
-    border:1px solid var(--border);
-    border-radius:12px;
-    background:#fff;
-    overflow:hidden;
-  }
+    img{
+      width: 100%;
+      height: 100%;
+      object-fit: contain; /* keep diagram visible */
+      display: none;
+    }
 
-  .imageWrap{
-    background:#f9fafb;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    min-height:300px; /* 🔑 makes it compact */
-    padding:10px;
-  }
-
-  img{
-    max-width:100%;
-    height:auto;
-    display:none;
-  }
-
-  .placeholder{
-    text-align:center;
-    color:var(--muted);
-    font-size:13px;
-  }
-
-  .meta{
-    padding:8px 12px;
-    border-top:1px solid var(--border);
-  }
-
-  .metaTitle{
-    margin:0;
-    font-size:14px;
-    font-weight:700;
-    color:var(--padua-maroon);
-  }
-
-  .metaDesc{
-    margin:4px 0 0;
-    font-size:12px;
-    line-height:1.4;
-  }
-</style>
-
+    /* Optional tiny reset link */
+    .reset{
+      position: absolute;
+      bottom: 6px;
+      right: 8px;
+      font-size: 10px;
+      color: var(--muted);
+      text-decoration: underline;
+      cursor: pointer;
+      background: rgba(255,255,255,.7);
+      padding: 2px 6px;
+      border-radius: 999px;
+      user-select: none;
+    }
+  </style>
 </head>
 
 <body>
-  <div class="wrap">
+  <div class="stage">
+    <div class="widget" aria-label="Co-teaching model selector widget">
 
-    <div class="topbar">
-      <div class="badge"></div>
-      <div>
-        <h1>Co-Teaching Model Selector</h1>
-        <p class="sub">Select a model to display the matching classroom layout.</p>
+      <div class="left">
+        <div class="btn" data-key="teaming"><span class="dot"></span>Team</div>
+        <div class="btn" data-key="parallelteaching"><span class="dot"></span>Parallel</div>
+        <div class="btn" data-key="stationteaching"><span class="dot"></span>Station</div>
+        <div class="btn" data-key="alternateteaching"><span class="dot"></span>Alt</div>
+        <div class="btn" data-key="oneteachoneassist"><span class="dot"></span>Assist</div>
+        <div class="btn" data-key="oneteachoneobserve"><span class="dot"></span>Observe</div>
       </div>
-    </div>
 
-    <div class="controls">
-      <label for="model">Select model:</label>
-      <select id="model">
-        <option value="">— Choose —</option>
-        <option value="teaming">Teaming</option>
-        <option value="parallelteaching">Parallel Teaching</option>
-        <option value="stationteaching">Station Teaching</option>
-        <option value="alternateteaching">Alternative Teaching</option>
-        <option value="oneteachoneassist">One Teach, One Assist</option>
-        <option value="oneteachoneobserve">One Teach, One Observe</option>
-      </select>
-    </div>
+      <div class="right">
+        <div id="placeholder" class="placeholder">Select a model</div>
 
-    <div class="card">
-      <div class="imageWrap">
-
-        <div id="placeholder" class="placeholder">
-          <div style="font-size:32px;margin-bottom:10px;">🟤🟡</div>
-          <strong>Nothing selected yet</strong>
-          <div>Choose a co-teaching model from the dropdown above.</div>
-        </div>
-
-        <!-- IMAGES (must match filenames exactly) -->
+        <!-- images in repo root -->
         <img id="img-teaming" src="teaming.png" alt="Teaming">
         <img id="img-parallelteaching" src="parallelteaching.png" alt="Parallel Teaching">
         <img id="img-stationteaching" src="stationteaching.png" alt="Station Teaching">
@@ -168,90 +149,54 @@
         <img id="img-oneteachoneassist" src="oneteachoneassist.png" alt="One Teach One Assist">
         <img id="img-oneteachoneobserve" src="oneteachoneobserve.png" alt="One Teach One Observe">
 
+        <div id="reset" class="reset" title="Clear selection">Reset</div>
       </div>
 
-      <div class="meta">
-        <p id="title" class="metaTitle">Select a model</p>
-        <p id="desc" class="metaDesc">The corresponding classroom layout will appear above.</p>
-      </div>
     </div>
-
   </div>
 
   <script>
     window.addEventListener("DOMContentLoaded", () => {
-
-      const model = document.getElementById("model");
       const placeholder = document.getElementById("placeholder");
-      const title = document.getElementById("title");
-      const desc = document.getElementById("desc");
+      const reset = document.getElementById("reset");
 
       const items = {
-        teaming: {
-          imgId: "img-teaming",
-          title: "Teaming",
-          desc: "Both teachers jointly plan and deliver instruction to the whole class."
-        },
-        parallelteaching: {
-          imgId: "img-parallelteaching",
-          title: "Parallel Teaching",
-          desc: "The class is split into two groups and both teachers teach the same content."
-        },
-        stationteaching: {
-          imgId: "img-stationteaching",
-          title: "Station Teaching",
-          desc: "Students rotate through stations with teachers facilitating learning."
-        },
-        alternateteaching: {
-          imgId: "img-alternateteaching",
-          title: "Alternative Teaching",
-          desc: "One teacher works with a small group while the other teaches the rest."
-        },
-        oneteachoneassist: {
-          imgId: "img-oneteachoneassist",
-          title: "One Teach, One Assist",
-          desc: "One teacher leads instruction while the other supports students."
-        },
-        oneteachoneobserve: {
-          imgId: "img-oneteachoneobserve",
-          title: "One Teach, One Observe",
-          desc: "One teacher instructs while the other observes learning."
-        }
+        teaming: "img-teaming",
+        parallelteaching: "img-parallelteaching",
+        stationteaching: "img-stationteaching",
+        alternateteaching: "img-alternateteaching",
+        oneteachoneassist: "img-oneteachoneassist",
+        oneteachoneobserve: "img-oneteachoneobserve"
       };
 
-      const imageIds = Object.values(items).map(i => i.imgId);
+      const buttons = Array.from(document.querySelectorAll(".btn"));
+      const imgEls = Object.values(items).map(id => document.getElementById(id));
 
-      function hideImages(){
-        imageIds.forEach(id => {
-          const el = document.getElementById(id);
-          if (el) el.style.display = "none";
-        });
+      function clear() {
+        imgEls.forEach(img => img.style.display = "none");
+        buttons.forEach(b => b.classList.remove("active"));
+        placeholder.style.display = "block";
       }
 
-      function show(key){
-        hideImages();
-
-        if(!key || !items[key]){
-          placeholder.style.display = "block";
-          title.textContent = "Select a model";
-          desc.textContent = "The corresponding classroom layout will appear above.";
-          return;
-        }
-
-        const chosen = items[key];
-        const img = document.getElementById(chosen.imgId);
-
+      function show(key) {
+        clear();
+        const id = items[key];
+        const img = document.getElementById(id);
+        if (!img) return;
         placeholder.style.display = "none";
         img.style.display = "block";
-        title.textContent = chosen.title;
-        desc.textContent = chosen.desc;
+        const btn = buttons.find(b => b.dataset.key === key);
+        if (btn) btn.classList.add("active");
       }
 
-      model.addEventListener("change", e => show(e.target.value));
-      show("");
+      buttons.forEach(btn => {
+        btn.addEventListener("click", () => show(btn.dataset.key));
+      });
+
+      reset.addEventListener("click", clear);
+
+      clear();
     });
   </script>
-
 </body>
 </html>
-
