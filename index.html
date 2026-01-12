@@ -1,256 +1,107 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Co-Teaching Model Selector</title>
+<script>
+  const model = document.getElementById("model");
+  const placeholder = document.getElementById("placeholder");
+  const title = document.getElementById("title");
+  const desc = document.getElementById("desc");
 
-  <style>
-    :root{
-      --padua-maroon:#6b0f1a;
-      --padua-gold:#c9a13b;
-      --text:#1f2937;
-      --muted:#6b7280;
-      --bg:#ffffff;
-      --card:#ffffff;
-      --border:#e5e7eb;
+  // Only target the co-teaching images (not every img tag on the page)
+  const imgIds = [
+    "img-teaming",
+    "img-parallelteaching",
+    "img-stationteaching",
+    "img-alternateteaching",
+    "img-oneteachoneassist",
+    "img-oneteachoneobserve"
+  ];
+
+  const items = {
+    teaming: {
+      imgId: "img-teaming",
+      title: "Teaming",
+      desc: "Both teachers jointly plan and deliver instruction to the whole class."
+    },
+    parallelteaching: {
+      imgId: "img-parallelteaching",
+      title: "Parallel Teaching",
+      desc: "The class is split into two groups and both teachers teach the same content simultaneously."
+    },
+    stationteaching: {
+      imgId: "img-stationteaching",
+      title: "Station Teaching",
+      desc: "Students rotate through learning stations with teachers facilitating different stations."
+    },
+    alternateteaching: {
+      imgId: "img-alternateteaching",
+      title: "Alternative Teaching",
+      desc: "One teacher works with a small group while the other teaches the larger group."
+    },
+    oneteachoneassist: {
+      imgId: "img-oneteachoneassist",
+      title: "One Teach, One Assist",
+      desc: "One teacher leads instruction while the other circulates and provides support."
+    },
+    oneteachoneobserve: {
+      imgId: "img-oneteachoneobserve",
+      title: "One Teach, One Observe",
+      desc: "One teacher instructs while the other observes student engagement and learning."
     }
+  };
 
-    body{
-      margin:0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-    }
-
-    .wrap{
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 24px;
-    }
-
-    .topbar{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      padding: 14px 16px;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      background: var(--card);
-      box-shadow: 0 2px 10px rgba(0,0,0,.04);
-    }
-
-    .badge{
-      width:10px;
-      height:40px;
-      border-radius:999px;
-      background: linear-gradient(180deg, var(--padua-maroon), var(--padua-gold));
-    }
-
-    h1{
-      font-size: 18px;
-      margin:0;
-      font-weight:700;
-    }
-
-    .sub{
-      margin:2px 0 0;
-      font-size:13px;
-      color: var(--muted);
-    }
-
-    .controls{
-      margin-top: 16px;
-      display:flex;
-      align-items:center;
-      gap:12px;
-      flex-wrap:wrap;
-    }
-
-    label{
-      font-size:13px;
-      color: var(--muted);
-    }
-
-    select{
-      min-width:320px;
-      padding:10px 12px;
-      border-radius:10px;
-      border:1px solid var(--border);
-      font-size:14px;
-      background:#fff;
-    }
-
-    .card{
-      margin-top: 16px;
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      background: var(--card);
-      box-shadow: 0 8px 30px rgba(0,0,0,.06);
-      overflow:hidden;
-    }
-
-    .imageWrap{
-      background:#f9fafb;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      min-height:520px;
-    }
-
-    img{
-      max-width:100%;
-      height:auto;
-      display:none;
-    }
-
-    .placeholder{
-      padding:48px 24px;
-      text-align:center;
-      color: var(--muted);
-      max-width:520px;
-    }
-
-    .meta{
-      padding:14px 18px 18px;
-      border-top:1px solid var(--border);
-    }
-
-    .metaTitle{
-      margin:0;
-      font-size:15px;
-      font-weight:700;
-      color: var(--padua-maroon);
-    }
-
-    .metaDesc{
-      margin:6px 0 0;
-      font-size:13px;
-      line-height:1.45;
-    }
-
-    .hint{
-      margin-top:10px;
-      font-size:12px;
-      color: var(--muted);
-    }
-  </style>
-</head>
-
-<body>
-  <div class="wrap">
-
-    <div class="topbar">
-      <div class="badge"></div>
-      <div>
-        <h1>Co-Teaching Model Selector</h1>
-        <p class="sub">Select a model to display the matching classroom layout.</p>
-      </div>
-    </div>
-
-    <div class="controls">
-      <label for="model">Select model:</label>
-      <select id="model">
-        <option value="">— Choose —</option>
-        <option value="teaming">Teaming</option>
-        <option value="parallelteaching">Parallel Teaching</option>
-        <option value="stationteaching">Station Teaching</option>
-        <option value="alternateteaching">Alternative Teaching</option>
-        <option value="oneteachoneassist">One Teach, One Assist</option>
-        <option value="oneteachoneobserve">One Teach, One Observe</option>
-      </select>
-    </div>
-
-    <div class="card">
-      <div class="imageWrap">
-
-        <div id="placeholder" class="placeholder">
-          <div style="font-size:34px; margin-bottom:10px;">🟤🟡</div>
-          <div style="font-weight:700; margin-bottom:6px;">Nothing selected yet</div>
-          <div>Choose a co-teaching model from the dropdown above.</div>
-        </div>
-
-        <!-- Images -->
-        <img id="img-teaming"            src="teaming.png" alt="Teaming">
-        <img id="img-parallelteaching"   src="parallelteaching.png" alt="Parallel Teaching">
-        <img id="img-stationteaching"    src="stationteaching.png" alt="Station Teaching">
-        <img id="img-alternateteaching"  src="alternateteaching.png" alt="Alternative Teaching">
-        <img id="img-oneteachoneassist"  src="ioneteachoneassist.png" alt="One Teach One Assist">
-        <img id="img-oneteachoneobserve" src="oneteachoneobserve.png" alt="One Teach One Observe">
-
-      </div>
-
-      <div class="meta">
-        <p id="title" class="metaTitle">Select a model</p>
-        <p id="desc" class="metaDesc">The corresponding classroom layout will appear above.</p>
-        <div class="hint">Tip: These images work best in 16:9 format for classroom screens.</div>
-      </div>
-    </div>
-
-  </div>
-
-  <script>
-    const model = document.getElementById("model");
-    const placeholder = document.getElementById("placeholder");
-    const title = document.getElementById("title");
-    const desc = document.getElementById("desc");
-
-    const items = {
-      teaming: {
-        imgId: "img-teaming",
-        title: "Teaming",
-        desc: "Both teachers jointly plan and deliver instruction to the whole class."
-      },
-      parallelteaching: {
-        imgId: "img-parallelteaching",
-        title: "Parallel Teaching",
-        desc: "The class is split into two groups and both teachers teach the same content simultaneously."
-      },
-      stationteaching: {
-        imgId: "img-stationteaching",
-        title: "Station Teaching",
-        desc: "Students rotate through learning stations with teachers facilitating different stations."
-      },
-      alternateteaching: {
-        imgId: "img-alternateteaching",
-        title: "Alternative Teaching",
-        desc: "One teacher works with a small group while the other teaches the larger group."
-      },
-      oneteachoneassist: {
-        imgId: "img-oneteachoneassist",
-        title: "One Teach, One Assist",
-        desc: "One teacher leads instruction while the other circulates and provides support."
-      },
-      oneteachoneobserve: {
-        imgId: "img-oneteachoneobserve",
-        title: "One Teach, One Observe",
-        desc: "One teacher instructs while the other observes student engagement and learning."
-      }
-    };
-
-    const allImgs = Array.from(document.querySelectorAll("img"));
-
-    function show(key){
-      allImgs.forEach(img => img.style.display = "none");
-
-      if(!key || !items[key]){
-        placeholder.style.display = "block";
-        title.textContent = "Select a model";
-        desc.textContent = "The corresponding classroom layout will appear above.";
+  // Hook error handlers so you can SEE what file isn't loading
+  function attachImageErrorHandlers() {
+    imgIds.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) {
+        console.error(`Missing <img> with id="${id}"`);
         return;
       }
+      el.addEventListener("error", () => {
+        console.error(`Image failed to load: ${el.getAttribute("src")}`);
+        placeholder.style.display = "block";
+        title.textContent = "Image not found";
+        desc.textContent =
+          `Could not load: ${el.getAttribute("src")}. Check the filename (case-sensitive) in GitHub.`;
+      });
+    });
+  }
 
-      placeholder.style.display = "none";
-      const chosen = items[key];
-      document.getElementById(chosen.imgId).style.display = "block";
-      title.textContent = chosen.title;
-      desc.textContent = chosen.desc;
+  function hideAllTeachingImages() {
+    imgIds.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.style.display = "none";
+    });
+  }
+
+  function show(key) {
+    hideAllTeachingImages();
+
+    if (!key || !items[key]) {
+      placeholder.style.display = "block";
+      title.textContent = "Select a model";
+      desc.textContent = "The corresponding classroom layout will appear above.";
+      return;
     }
 
-    model.addEventListener("change", e => show(e.target.value));
-    show("");
-  </script>
+    const chosen = items[key];
+    const imgEl = document.getElementById(chosen.imgId);
 
-</body>
-</html>
+    if (!imgEl) {
+      console.error(`No image element found for imgId="${chosen.imgId}"`);
+      placeholder.style.display = "block";
+      title.textContent = "Setup issue";
+      desc.textContent = `Could not find image element: ${chosen.imgId}`;
+      return;
+    }
 
+    placeholder.style.display = "none";
+    imgEl.style.display = "block";
+    title.textContent = chosen.title;
+    desc.textContent = chosen.desc;
+
+    console.log(`Showing: ${key} -> ${imgEl.getAttribute("src")}`);
+  }
+
+  attachImageErrorHandlers();
+  model.addEventListener("change", e => show(e.target.value));
+  show("");
+</script>
