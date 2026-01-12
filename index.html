@@ -6,128 +6,125 @@
   <title>Co-Teaching Model Selector</title>
 
   <style>
-    :root{
-      --padua-maroon:#6b0f1a;
-      --padua-gold:#c9a13b;
-      --text:#1f2937;
-      --muted:#6b7280;
-      --bg:#ffffff;
-      --card:#ffffff;
-      --border:#e5e7eb;
-    }
+  :root{
+    --padua-maroon:#6b0f1a;
+    --padua-gold:#c9a13b;
+    --text:#1f2937;
+    --muted:#6b7280;
+    --border:#e5e7eb;
+  }
 
-    body{
-      margin:0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-    }
+  body{
+    margin:0;
+    font-family: Arial, Helvetica, sans-serif;
+    background:#ffffff;
+    color:var(--text);
+  }
 
-    .wrap{
-      max-width:1200px;
-      margin:0 auto;
-      padding:24px;
-    }
+  .wrap{
+    max-width:1000px;
+    margin:0 auto;
+    padding:12px;
+  }
 
-    .topbar{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      padding:14px 16px;
-      border:1px solid var(--border);
-      border-radius:14px;
-      background:#fff;
-      box-shadow:0 2px 10px rgba(0,0,0,.04);
-    }
+  .topbar{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:10px 12px;
+    border:1px solid var(--border);
+    border-radius:10px;
+    background:#fff;
+  }
 
-    .badge{
-      width:10px;
-      height:40px;
-      border-radius:999px;
-      background:linear-gradient(180deg,var(--padua-maroon),var(--padua-gold));
-    }
+  .badge{
+    width:8px;
+    height:32px;
+    border-radius:999px;
+    background:linear-gradient(180deg,var(--padua-maroon),var(--padua-gold));
+  }
 
-    h1{
-      font-size:18px;
-      margin:0;
-      font-weight:700;
-    }
+  h1{
+    font-size:16px;
+    margin:0;
+    font-weight:700;
+  }
 
-    .sub{
-      margin:2px 0 0;
-      font-size:13px;
-      color:var(--muted);
-    }
+  .sub{
+    margin:2px 0 0;
+    font-size:12px;
+    color:var(--muted);
+  }
 
-    .controls{
-      margin-top:16px;
-      display:flex;
-      align-items:center;
-      gap:12px;
-    }
+  .controls{
+    margin-top:10px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
 
-    label{
-      font-size:13px;
-      color:var(--muted);
-    }
+  label{
+    font-size:12px;
+    color:var(--muted);
+  }
 
-    select{
-      min-width:320px;
-      padding:10px 12px;
-      border-radius:10px;
-      border:1px solid var(--border);
-      font-size:14px;
-      background:#fff;
-    }
+  select{
+    min-width:260px;
+    padding:8px 10px;
+    border-radius:8px;
+    border:1px solid var(--border);
+    font-size:13px;
+    background:#fff;
+  }
 
-    .card{
-      margin-top:16px;
-      border:1px solid var(--border);
-      border-radius:16px;
-      background:#fff;
-      box-shadow:0 8px 30px rgba(0,0,0,.06);
-      overflow:hidden;
-    }
+  .card{
+    margin-top:10px;
+    border:1px solid var(--border);
+    border-radius:12px;
+    background:#fff;
+    overflow:hidden;
+  }
 
-    .imageWrap{
-      background:#f9fafb;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      min-height:520px;
-    }
+  .imageWrap{
+    background:#f9fafb;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:300px; /* 🔑 makes it compact */
+    padding:10px;
+  }
 
-    img{
-      max-width:100%;
-      height:auto;
-      display:none;
-    }
+  img{
+    max-width:100%;
+    height:auto;
+    display:none;
+  }
 
-    .placeholder{
-      padding:48px 24px;
-      text-align:center;
-      color:var(--muted);
-      max-width:520px;
-    }
+  .placeholder{
+    text-align:center;
+    color:var(--muted);
+    font-size:13px;
+  }
 
-    .meta{
-      padding:14px 18px 18px;
-      border-top:1px solid var(--border);
-    }
+  .meta{
+    padding:8px 12px;
+    border-top:1px solid var(--border);
+  }
 
-    .metaTitle{
-      margin:0;
-      font-size:15px;
-      font-weight:700;
-      color:var(--padua-maroon);
-    }
+  .metaTitle{
+    margin:0;
+    font-size:14px;
+    font-weight:700;
+    color:var(--padua-maroon);
+  }
 
-    .metaDesc{
-      margin:6px 0 0;
-      font-size:13px;
-      line-height:1.45;
-    }
-  </style>
+  .metaDesc{
+    margin:4px 0 0;
+    font-size:12px;
+    line-height:1.4;
+  }
+</style>
+
 </head>
 
 <body>
@@ -257,3 +254,4 @@
 
 </body>
 </html>
+
